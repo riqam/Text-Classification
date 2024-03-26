@@ -25,13 +25,22 @@ def main():
     # Find the corresponding FullText for the selected title
     selected_fulltext = X_test_clean.loc[X_test['Title'] == selected_title, 'FullText'].iloc[0]
 
-
     if st.button("Predict"):
+        tokens = word_tokenize(selected_fulltext)
+        tokens_filtered = [word for word in tokens if word.lower() not in stop_words]
 
-        X_test_clean['tokens'] = word_tokenize(selected_fulltext)
-        X_text_test = joblib.load('Test Kompas/tfidf_vectorizer.pkl').transform(X_test_clean['tokens'].apply(lambda x: ' '.join(x)))
+        # Join the filtered tokens back into a single string
+        text_for_prediction = ' '.join(tokens_filtered)
 
-        prediction = model.predict([X_text_test])
+        # Load the TfidfVectorizer
+        vectorizer = joblib.load('Test Kompas/tfidf_vectorizer.pkl')
+
+        # Transform the text using the loaded vectorizer
+        X_text_test = vectorizer.transform([text_for_prediction])
+
+        # Predict the category
+        prediction = model.predict(X_text_test)
+
         st.write(f"Predicted category for '{selected_title}': {prediction[0]}")
 
 if __name__ == "__main__":
