@@ -41,7 +41,7 @@ def main():
         # Predict the category
         prediction = model.predict(X_text_test)
 
-        st.write(f"Predicted category for '{selected_title}': {prediction[0]}")
+        st.write(f"Predicted Site News : {prediction[0]}")
 
 if __name__ == "__main__":
     main()
