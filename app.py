@@ -18,7 +18,8 @@ def main():
     selected_title = st.selectbox("Choose a title:", X_test['Title'])
 
     # Find the corresponding FullText for the selected title
-    selected_fulltext = X_test.loc[X_test['Title'] == selected_title, X_test_clean['FullText']].iloc[0]
+    selected_fulltext = X_test_clean.loc[X_test['Title'] == selected_title, 'FullText'].iloc[0]
+
 
     if st.button("Predict"):
 
