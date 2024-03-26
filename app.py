@@ -23,7 +23,7 @@ def main():
 
     if st.button("Predict"):
 
-        X_test_clean['tokens'] = selected_fulltext.apply(lambda x: word_tokenize(x))
+        X_test_clean['tokens'] = word_tokenize(selected_fulltext)
         X_text_test = joblib.load('Test Kompas/tfidf_vectorizer.pkl').transform(X_test_clean['tokens'].apply(lambda x: ' '.join(x)))
 
         prediction = model.predict([X_text_test])
