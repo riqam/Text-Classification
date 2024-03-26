@@ -16,11 +16,13 @@ stop_words = set(stopwords.words('indonesian'))
 # Streamlit UI
 def main():
     st.title("TEXT ANALYSIS AND CLASSIFICATION")
-
+    st.caption('Made by M. Rifqi Akram © 2024')
+    st.markdown('''
+                    Please, select the title of the article you want to analyze!
+    ''')
+    
     X_test = joblib.load('Test Kompas/data/X_test.pkl')
     X_test_clean = joblib.load('Test Kompas/data/X_test_clean.pkl')
-
-    st.subheader("Please, select the title of the article you want to analyze!")
 
     # Dropdown to select title
     selected_title = st.selectbox("Choose a title:", X_test['Title'])
