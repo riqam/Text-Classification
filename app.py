@@ -9,8 +9,8 @@ model = joblib.load('best_model.pkl')
 def main():
     st.title("Text Category Prediction")
 
-    X_test = joblib.load('Test Kompas\data\X_test.pkl')
-    X_test_clean = joblib.load('Test Kompas\data\X_test_clean.pkl')
+    X_test = joblib.load('Test Kompas/data/X_test.pkl')
+    X_test_clean = joblib.load('Test Kompas/data/X_test_clean.pkl')
 
     st.write("Select a title to predict its associated text category:")
 
