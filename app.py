@@ -4,6 +4,9 @@ from nltk.tokenize import word_tokenize
 
 # Load the model
 model = joblib.load('best_model.pkl')
+nltk.download('punkt')
+nltk.download('stopwords')
+stop_words = set(stopwords.words('indonesian')) 
 
 # Streamlit UI
 def main():
