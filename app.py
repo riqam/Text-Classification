@@ -1,6 +1,8 @@
 import streamlit as st
 import joblib
 from nltk.tokenize import word_tokenize
+import nltk
+from nltk.corpus import stopwords
 
 # Load the model
 model = joblib.load('best_model.pkl')
