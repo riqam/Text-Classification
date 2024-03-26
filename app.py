@@ -27,10 +27,20 @@ def main():
     # Find the corresponding FullText for the selected title
     selected_fulltext = X_test_clean.loc[X_test['Title'] == selected_title, 'FullText'].iloc[0]
 
+    def analyze_sentiment(text):
+        analyzer = SentimentIntensityAnalyzer()
+        sentiment = analyzer.polarity_scores(text)
+        # Mengembalikan label sentimen berdasarkan nilai komponen sentimen
+        if sentiment['compound'] == 0:
+            return 'Neutral'
+        elif sentiment['compound'] < 0 :
+            return 'Negative'
+        else:
+            return 'Positive'
+    
     if st.button("Analyze"):
         # Sentiment Analysis
-        analyzer = SentimentIntensityAnalyzer()
-        sentiment_scores = analyzer.polarity_scores(selected_fulltext)
+        sentiment_scores = analyze_sentiment(selected_fulltext)
 
         # Predict the category
         tokens = word_tokenize(selected_fulltext)
