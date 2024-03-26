@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 import joblib
 from nltk.tokenize import word_tokenize
 import nltk
@@ -14,12 +15,12 @@ stop_words = set(stopwords.words('indonesian'))
 
 # Streamlit UI
 def main():
-    st.title("Text Analysis")
+    st.title("TEXT ANALYSIS AND CLASSIFICATION")
 
     X_test = joblib.load('Test Kompas/data/X_test.pkl')
     X_test_clean = joblib.load('Test Kompas/data/X_test_clean.pkl')
 
-    st.write("Select a title to analyze:")
+    st.subheader("Please, select the title of the article you want to analyze!")
 
     # Dropdown to select title
     selected_title = st.selectbox("Choose a title:", X_test['Title'])
@@ -39,6 +40,8 @@ def main():
             return 'Positive'
     
     if st.button("Analyze"):
+        with st.spinner('Analyze the article...'):
+            time.sleep(3)
         # Sentiment Analysis
         sentiment_scores = analyze_sentiment(selected_fulltext)
 
@@ -49,9 +52,8 @@ def main():
         X_text_test = joblib.load('Test Kompas/tfidf_vectorizer.pkl').transform([text_for_prediction])
         prediction = model.predict(X_text_test)
 
-        st.write(f"Predicted category for '{selected_title}': {prediction[0]}")
-        st.write("Sentiment Analysis:")
-        st.write(sentiment_scores)
+        st.write(f"Predicted Site News of the content: {prediction[0]}")
+        st.write("Results of sentiment analysis from articles:", sentiment_scores)
 
 if __name__ == "__main__":
     main()
